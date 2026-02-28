@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: refugee-digital-identity
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-service
+  namespace: refugee-digital-identity
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: identity-service } }
+  template:
+    metadata: { labels: { app: identity-service } }
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/example/identity-service:latest
+          ports: [{containerPort: 8000}]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: identity-service
+  namespace: refugee-digital-identity
+spec:
+  selector: { app: identity-service }
+  ports: [{ port: 80, targetPort: 8000 }]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: identity-service-hpa
+  namespace: refugee-digital-identity
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: identity-service
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target: { type: Utilization, averageUtilization: 65 }
