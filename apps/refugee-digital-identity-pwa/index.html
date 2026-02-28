@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refugee Digital Identity</title>
+  <meta name="theme-color" content="#1CABE2" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="mobile-shell">
+    <header class="panel top-header">
+      <div>
+        <h1>Refugee Digital Identity &amp; Life-Progress Wallet</h1>
+        <p>Dadaab (Hagadera, Ifo, Dagahaley) + Kakuma</p>
+      </div>
+      <div class="header-actions">
+        <button id="theme-btn" class="pill">Theme</button>
+      </div>
+    </header>
+
+    <section class="panel intro">
+      <h2>One trusted wallet for identity and services</h2>
+      <div class="chip-row">
+        <span class="chip active">Kakuma</span>
+        <span class="chip">Hagadera</span>
+        <span class="chip">Ifo</span>
+        <span class="chip">Dagahaley</span>
+      </div>
+    </section>
+
+    <section class="panel auth-block">
+      <h3>Secure Registration</h3>
+      <div class="form-grid">
+        <input id="full-name" placeholder="Full name" />
+        <input id="ration-card" placeholder="Ration Card" />
+        <input id="alien-id" placeholder="Alien ID (DRS)" />
+        <select id="camp-select">
+          <option value="Kakuma">Kakuma</option>
+          <option value="Hagadera">Hagadera</option>
+          <option value="Ifo">Ifo</option>
+          <option value="Dagahaley">Dagahaley</option>
+        </select>
+        <input id="phone-number" placeholder="Phone number (e.g. +2547...)" />
+        <select id="lang-select">
+          <option value="en">English</option>
+          <option value="so">Somali</option>
+          <option value="sw">Swahili</option>
+          <option value="ar">Arabic</option>
+        </select>
+      </div>
+      <label class="inline-toggle"><input id="biometric-opt" type="checkbox" /> Enable biometric opt-in</label>
+      <button id="register-btn" class="cta">Register Securely</button>
+      <p id="registration-status" class="status-line">Fill in details and tap Register Securely.</p>
+      <p id="supabase-status" class="status-line muted">Checking backend connectivity...</p>
+    </section>
+
+    <section class="panel profile-hero">
+      <div>
+        <p class="label">Active profile</p>
+        <h3 id="active-profile-name">Asha Ibrahim</h3>
+      </div>
+      <button class="icon">⌁</button>
+    </section>
+
+    <section class="panel alert">⚠️ Next food distribution for household #406</section>
+
+    <section class="stats-grid">
+      <article class="panel stat"><b id="food-date">--</b><span>Food</span></article>
+      <article class="panel stat"><b>Health</b><span>Vaccines</span></article>
+      <article class="panel stat"><b>Education</b><span>Training</span></article>
+      <article class="panel stat"><b id="employability">--</b><span>Employability</span></article>
+      <article class="panel stat"><b>Job</b><span>Readiness</span></article>
+      <article class="panel stat"><b id="vulnerability">--</b><span>Vulnerability</span></article>
+    </section>
+
+    <section class="panel">
+      <h3>Core Services Overview</h3>
+      <div class="triple">
+        <div><small>Household members</small><strong>5</strong></div>
+        <div><small>Appointments</small><strong>3</strong></div>
+        <div><small>Pending docs</small><strong>2</strong></div>
+      </div>
+    </section>
+
+    <section class="panel split">
+      <article>
+        <h4>Identity & Access</h4>
+        <ul>
+          <li>QR Digital ID card</li>
+          <li>Biometric opt-in</li>
+          <li>NFC-ready verification</li>
+        </ul>
+      </article>
+      <article>
+        <h4>Features</h4>
+        <ul>
+          <li>Smart reminders</li>
+          <li>Fraud reporting</li>
+          <li>Secure messages</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="panel image-strip">
+      <h3>Programs & Highlights</h3>
+      <div class="photo-grid detailed-highlights">
+        <article class="highlight-card">
+          <div class="ph p1"></div>
+          <div class="highlight-meta">
+            <strong>Child Immunization Drive</strong>
+            <span>Hagadera Clinic • 12 Mar</span>
+          </div>
+        </article>
+        <article class="highlight-card">
+          <div class="ph p2"></div>
+          <div class="highlight-meta">
+            <strong>Women Safe Space Session</strong>
+            <span>Ifo Block D • 14 Mar</span>
+          </div>
+        </article>
+        <article class="highlight-card">
+          <div class="ph p3"></div>
+          <div class="highlight-meta">
+            <strong>Digital ID Help Desk</strong>
+            <span>Kakuma Zone 3 • Daily</span>
+          </div>
+        </article>
+        <article class="highlight-card">
+          <div class="ph p4"></div>
+          <div class="highlight-meta">
+            <strong>Youth TVET Orientation</strong>
+            <span>Dagahaley Center • 18 Mar</span>
+          </div>
+        </article>
+        <article class="highlight-card">
+          <div class="ph p5"></div>
+          <div class="highlight-meta">
+            <strong>Food Distribution Notice</strong>
+            <span>Kakuma Block B • 16 Mar</span>
+          </div>
+        </article>
+        <article class="highlight-card">
+          <div class="ph p6"></div>
+          <div class="highlight-meta">
+            <strong>DRS Fingerprinting Update</strong>
+            <span>UNHCR-DRS Desk • 20 Mar</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="cards-3">
+      <article class="panel"><h4>Identity Wallet</h4><p>View QR ID, Alien card, and ration profile offline.</p></article>
+      <article class="panel"><h4>Smart Alerts</h4><p id="ai-summary">Loading AI notifications...</p></article>
+      <article class="panel"><h4>Digital Documents</h4><p>Encrypted vault + time-limited QR sharing.</p></article>
+    </section>
+
+    <section class="cards-2">
+      <article class="panel"><h4>Campwide Module</h4><p>Targeted announcements and block-level broadcasts.</p></article>
+      <article class="panel"><h4>Service Module</h4><p>Eligibility checks, slots, and appointment waitlists.</p></article>
+      <article class="panel"><h4>NGO Staff Module</h4><p>Attendance QR scan, delivery logs, and case notes.</p></article>
+      <article class="panel"><h4>AI Refugee Assistant</h4><p>Multilingual support and mood-aware guidance.</p></article>
+    </section>
+
+    <section class="cards-2">
+      <article class="panel"><h4>Verification Engine</h4><p>ID hash checks and immutable audit events.</p></article>
+      <article class="panel"><h4>AI Risk & Demand Intelligence</h4><p>Forecast service demand and optimize resources.</p></article>
+    </section>
+
+    <section class="cards-2">
+      <article class="panel"><h4>NGO Analytics</h4><p>Food, health, education and vulnerability dashboards.</p></article>
+      <article class="panel"><h4>Stress Signals</h4><p>Urgency indicators for protection and psychosocial referrals.</p></article>
+    </section>
+
+    <section class="cards-2">
+      <article class="panel"><h4>Prediction Model</h4><p>Case progression likelihood and queue pressure trends.</p></article>
+      <article class="panel"><h4>Protection & Safety Insights</h4><p>Fraud hot-spot patterns and suspicious activity flags.</p></article>
+    </section>
+
+    <section class="panel split tight">
+      <article>
+        <h4>Camp Announcements Feed</h4>
+        <ul>
+          <li>Food dispatch confirmed for block C1.</li>
+          <li>Fingerprinting updates for new arrivals.</li>
+          <li>Women & child protection outreach tomorrow.</li>
+        </ul>
+      </article>
+      <article>
+        <h4>Networked Service Links</h4>
+        <p>UNHCR, DRS, health, education and legal aid adapters.</p>
+      </article>
+    </section>
+
+    <section class="panel language">
+      <h3>Language</h3>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="so">Somali</option>
+        <option value="sw">Swahili</option>
+        <option value="ar">Arabic</option>
+      </select>
+      <button id="sync-btn" class="cta">Sync latest plan</button>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

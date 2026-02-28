@@ -1,0 +1,184 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: refugee-digital-identity
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rdi-config
+  namespace: refugee-digital-identity
+data:
+  SUPABASE_URL: "https://replace-me.supabase.co"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rdi-secrets
+  namespace: refugee-digital-identity
+type: Opaque
+stringData:
+  SUPABASE_SERVICE_ROLE_KEY: "replace-me"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-service
+  namespace: refugee-digital-identity
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: identity-service
+  template:
+    metadata:
+      labels:
+        app: identity-service
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/example/identity-service:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: SUPABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: rdi-config
+                  key: SUPABASE_URL
+            - name: SUPABASE_SERVICE_ROLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rdi-secrets
+                  key: SUPABASE_SERVICE_ROLE_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: identity-service
+  namespace: refugee-digital-identity
+spec:
+  selector:
+    app: identity-service
+  ports:
+    - port: 80
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ngo-service
+  namespace: refugee-digital-identity
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ngo-service
+  template:
+    metadata:
+      labels:
+        app: ngo-service
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/example/ngo-service:latest
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ngo-service
+  namespace: refugee-digital-identity
+spec:
+  selector:
+    app: ngo-service
+  ports:
+    - port: 80
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-catalog-service
+  namespace: refugee-digital-identity
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: service-catalog-service
+  template:
+    metadata:
+      labels:
+        app: service-catalog-service
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/example/service-catalog-service:latest
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-catalog-service
+  namespace: refugee-digital-identity
+spec:
+  selector:
+    app: service-catalog-service
+  ports:
+    - port: 80
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-service
+  namespace: refugee-digital-identity
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ai-service
+  template:
+    metadata:
+      labels:
+        app: ai-service
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/example/ai-service:latest
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-service
+  namespace: refugee-digital-identity
+spec:
+  selector:
+    app: ai-service
+  ports:
+    - port: 80
+      targetPort: 8000
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: identity-service-hpa
+  namespace: refugee-digital-identity
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: identity-service
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 65

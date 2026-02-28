@@ -1,0 +1,12 @@
+{
+  "name": "service-catalog-service",
+  "version": "1.0.0",
+  "private": true,
+  "main": "app/main.js",
+  "scripts": {
+    "start": "node app/main.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
