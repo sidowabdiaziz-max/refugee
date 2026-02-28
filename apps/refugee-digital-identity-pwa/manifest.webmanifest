@@ -1,0 +1,9 @@
+{
+  "name": "Refugee Digital Identity",
+  "short_name": "RDI",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1CABE2",
+  "icons": []
+}
